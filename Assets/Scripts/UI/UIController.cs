@@ -15,6 +15,10 @@ public class UIController : MonoBehaviour
     public Slider expLvlSlider;
     public TMP_Text expLvlText;
 
+    public LevelUpSelectionButton[] levelUpButtons;
+
+    public GameObject levelUpPanel;
+
     // Start is called before the first frame update
     void Start()
     {
