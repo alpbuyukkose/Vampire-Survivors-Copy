@@ -20,6 +20,9 @@ public class EnemyController : MonoBehaviour
 
     public int expToGive = 1;
 
+    public int coinToGive = 1;
+    public float coinDropRate = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,24 +34,31 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (knockBackCounter > 0)
+        if (PlayerController.instance.gameObject.activeSelf)
         {
-            knockBackCounter -= Time.deltaTime;
-            if (moveSpeed > 0)
+            if (knockBackCounter > 0)
             {
-                moveSpeed = -moveSpeed * 2f;
-            }
+                knockBackCounter -= Time.deltaTime;
+                if (moveSpeed > 0)
+                {
+                    moveSpeed = -moveSpeed * 2f;
+                }
 
-            if (knockBackCounter <= 0)
-            {
-                moveSpeed = Mathf.Abs(moveSpeed * .5f);
+                if (knockBackCounter <= 0)
+                {
+                    moveSpeed = Mathf.Abs(moveSpeed * .5f);
+                }
             }
+            Vector2 direction = target.position - transform.position;
+            rb.velocity = direction.normalized * moveSpeed;
+
+            if (hitCounter > 0f)
+                hitCounter -= Time.deltaTime;
         }
-        Vector2 direction = target.position - transform.position;
-        rb.velocity = direction.normalized * moveSpeed;
-
-        if (hitCounter > 0f)
-            hitCounter -= Time.deltaTime;
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
 
     }
 
@@ -59,6 +69,11 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(gameObject);
             ExperienceLevelController.instance.SpawnExp(transform.position, expToGive);    
+
+            if (Random.value <= coinDropRate)
+            {
+                CoinController.instance.DropCoin(transform.position, coinToGive);
+            }
         }
     }
 

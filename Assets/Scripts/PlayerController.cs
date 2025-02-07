@@ -30,7 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
 
-        AddWeapon(Random.Range(0, unassignedWeapons.Count));
+        if (assignedWeapons.Count == 0)
+        {
+            AddWeapon(Random.Range(0, unassignedWeapons.Count));
+        }
     }
 
     // Update is called once per frame
@@ -67,9 +70,9 @@ public class PlayerController : MonoBehaviour
 
     public void AddWeapon(Weapon weaponToAdd)
     {
-        weaponToAdd.gameObject.SetActive(true);
-
         assignedWeapons.Add(weaponToAdd);
+
+        weaponToAdd.gameObject.SetActive(true);
         unassignedWeapons.Remove(weaponToAdd);
     }
 }
