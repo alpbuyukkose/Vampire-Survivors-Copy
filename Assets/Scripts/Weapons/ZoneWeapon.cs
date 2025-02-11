@@ -33,6 +33,8 @@ public class ZoneWeapon : Weapon
             if (damager != null)
             {
                 Instantiate(damager, damager.transform.position, Quaternion.identity, transform).gameObject.SetActive(true);
+
+                SFXManager.instance.PlaySFXPitched(10);
             }
         }
     }
