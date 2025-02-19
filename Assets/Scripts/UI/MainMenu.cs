@@ -6,6 +6,26 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public string firstLevelName;
+    public GameObject mainMenu;
+    public GameObject settings;
+
+    private void Start()
+    {
+        mainMenu.SetActive(true);
+        settings.SetActive(false);
+    }
+
+    public void openMainMenu()
+    {
+        mainMenu.SetActive(true);
+        settings.SetActive(false);
+    }
+
+    public void openSettings()
+    {
+        settings.SetActive(true);
+        mainMenu.SetActive(false);
+    }
 
     public void StartGame()
     {
